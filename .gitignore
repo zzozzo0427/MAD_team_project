@@ -37,3 +37,4 @@ local.properties
 *.log
 *.bak
 *.swp
+build/
