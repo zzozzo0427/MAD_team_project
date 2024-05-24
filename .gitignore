@@ -1,0 +1,39 @@
+# Flutter build output
+build/
+
+# Android build output
+app/build/
+
+# iOS build output
+ios/build/
+
+# Gradle files
+.gradle/
+gradle-wrapper.jar
+gradlew
+gradlew.bat
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# IDE files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# MacOS files
+.DS_Store
+
+# Large files
+*.apk
+*.aab
+*.jar
+*.zip
+*.tar.gz
+*.so
+
+# Other files
+*.log
+*.bak
+*.swp
