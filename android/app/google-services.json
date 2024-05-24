@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1052926683011",
+    "project_id": "mad-team-project",
+    "storage_bucket": "mad-team-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052926683011:android:3985aab18ec0098b27f8b6",
+        "android_client_info": {
+          "package_name": "com.example.flappy_bird_game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052926683011-j9qmn21qjifkao09flu33openg40p67g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe2zqCLPU8jGfl_usq4O6VVBW6U_mimIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1052926683011-j9qmn21qjifkao09flu33openg40p67g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1052926683011-8355681a7fg2akgch62qomii45sv9plf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flappyBirdGame"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
