@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'map.dart';
 
 class LoginScreen extends StatelessWidget {
   Future<UserCredential> signInWithGoogle() async {
@@ -23,7 +24,8 @@ class LoginScreen extends StatelessWidget {
   Future<void> _handleSignIn(BuildContext context) async {
     try {
       UserCredential userCredential = await signInWithGoogle();
-      // TODO: Navigate to the next screen or perform necessary actions
+      // Navigate to the map screen after successful login
+      Navigator.pushNamed(context, '/map');
       print('Signed in as: ${userCredential.user?.displayName}');
     } catch (error) {
       print(error);

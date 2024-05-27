@@ -1,6 +1,6 @@
 {
-    "name": "flappy_bird_game",
-    "short_name": "flappy_bird_game",
+    "name": "mad_real_project",
+    "short_name": "mad_real_project",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

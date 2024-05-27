@@ -42,7 +42,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyB0r7M-wA-uiZDc1PRsgwMsRAibkMAutw0',
-    appId: '1:1052926683011:web:b7a5a8a1cfaf9b6d27f8b6',
+    appId: '1:1052926683011:web:705de55f8013032827f8b6',
     messagingSenderId: '1052926683011',
     projectId: 'mad-team-project',
     authDomain: 'mad-team-project.firebaseapp.com',
@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAe2zqCLPU8jGfl_usq4O6VVBW6U_mimIk',
-    appId: '1:1052926683011:android:3985aab18ec0098b27f8b6',
+    appId: '1:1052926683011:android:a8387b77e7ef4d6527f8b6',
     messagingSenderId: '1052926683011',
     projectId: 'mad-team-project',
     storageBucket: 'mad-team-project.appspot.com',
@@ -59,27 +59,27 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDhTjozQa6Wn1NzlWErEUCryiNq3Ws1etQ',
-    appId: '1:1052926683011:ios:31b698c2d35a663d27f8b6',
+    appId: '1:1052926683011:ios:e3c62242d824d14c27f8b6',
     messagingSenderId: '1052926683011',
     projectId: 'mad-team-project',
     storageBucket: 'mad-team-project.appspot.com',
-    iosClientId: '1052926683011-8355681a7fg2akgch62qomii45sv9plf.apps.googleusercontent.com',
-    iosBundleId: 'com.example.flappyBirdGame',
+    iosClientId: '1052926683011-bjod2mqmebgi0d3ps38hll1636obmca8.apps.googleusercontent.com',
+    iosBundleId: 'com.example.madRealProject',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDhTjozQa6Wn1NzlWErEUCryiNq3Ws1etQ',
-    appId: '1:1052926683011:ios:31b698c2d35a663d27f8b6',
+    appId: '1:1052926683011:ios:e3c62242d824d14c27f8b6',
     messagingSenderId: '1052926683011',
     projectId: 'mad-team-project',
     storageBucket: 'mad-team-project.appspot.com',
-    iosClientId: '1052926683011-8355681a7fg2akgch62qomii45sv9plf.apps.googleusercontent.com',
-    iosBundleId: 'com.example.flappyBirdGame',
+    iosClientId: '1052926683011-bjod2mqmebgi0d3ps38hll1636obmca8.apps.googleusercontent.com',
+    iosBundleId: 'com.example.madRealProject',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyB0r7M-wA-uiZDc1PRsgwMsRAibkMAutw0',
-    appId: '1:1052926683011:web:705de55f8013032827f8b6',
+    appId: '1:1052926683011:web:01c7c0d833786b6727f8b6',
     messagingSenderId: '1052926683011',
     projectId: 'mad-team-project',
     authDomain: 'mad-team-project.firebaseapp.com',
