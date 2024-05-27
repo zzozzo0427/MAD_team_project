@@ -1,0 +1,1 @@
+ /Users/thals/Documents/GitHub/MAD_team_project/.dart_tool/flutter_build/1a261b00c738abf81cd78805fc5ff170/native_assets.yaml: 
