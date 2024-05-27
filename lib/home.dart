@@ -19,12 +19,27 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Angelic Lung',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Angelic Lung',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    // Rank button action
+                  },
+                  child: Text('Rank'),
+                  style: ElevatedButton.styleFrom(
+                    iconColor: Colors.green, // Background color
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 20),
             Image.asset(
