@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mad_real_project/home.dart';
 import 'package:mad_real_project/map.dart';
 import 'login.dart';
 import 'splash.dart';
+import 'home.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -15,7 +17,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => SplashScreen(),
         '/login': (context) => LoginScreen(),
-        '/map': (context) => MapScreen(),
+        '/home': (context) => HomeScreen(),
+        //'/map': (context) => MapScreen(),
       },
     );
   }
