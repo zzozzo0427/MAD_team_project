@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
         '/login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),
-        //'/map': (context) => MapScreen(),
+        '/map': (context) => MapScreen(),
       },
     );
   }
