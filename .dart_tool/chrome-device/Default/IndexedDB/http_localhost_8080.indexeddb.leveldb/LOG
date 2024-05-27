@@ -1,7 +1,19 @@
-2024/05/27-16:58:06.223 499c Reusing MANIFEST C:\Users\gg732\AppData\Local\Temp\flutter_tools.bb481a72\flutter_tools_chrome_device.5abc0954\Default\IndexedDB\http_localhost_8080.indexeddb.leveldb/MANIFEST-000001
-2024/05/27-16:58:06.223 499c Recovering log #34
-2024/05/27-16:58:06.224 499c Reusing old log C:\Users\gg732\AppData\Local\Temp\flutter_tools.bb481a72\flutter_tools_chrome_device.5abc0954\Default\IndexedDB\http_localhost_8080.indexeddb.leveldb/000034.log 
-2024/05/27-16:58:06.234 6fc Level-0 table #39: started
-2024/05/27-16:58:06.235 6fc Level-0 table #39: 8691 bytes OK
-2024/05/27-16:58:06.236 6fc Delete type=0 #34
-2024/05/27-16:58:06.237 55b8 Manual compaction at level-0 from '\x00\x0f\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x10\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/05/27-17:03:03.862 5b5c Reusing MANIFEST C:\Users\gg732\AppData\Local\Temp\flutter_tools.655d1453\flutter_tools_chrome_device.fc138fcb\Default\IndexedDB\http_localhost_8080.indexeddb.leveldb/MANIFEST-000001
+2024/05/27-17:03:03.862 5b5c Recovering log #38
+2024/05/27-17:03:03.863 5b5c Reusing old log C:\Users\gg732\AppData\Local\Temp\flutter_tools.655d1453\flutter_tools_chrome_device.fc138fcb\Default\IndexedDB\http_localhost_8080.indexeddb.leveldb/000038.log 
+2024/05/27-17:03:03.863 5b5c Delete type=0 #7
+2024/05/27-17:03:03.863 5b5c Delete type=0 #10
+2024/05/27-17:03:03.863 5b5c Delete type=0 #15
+2024/05/27-17:03:03.863 5b5c Delete type=2 #18
+2024/05/27-17:03:03.863 5b5c Delete type=0 #20
+2024/05/27-17:03:03.863 5b5c Delete type=2 #21
+2024/05/27-17:03:03.863 5b5c Delete type=2 #23
+2024/05/27-17:03:03.863 5b5c Delete type=0 #29
+2024/05/27-17:03:03.863 5b5c Delete type=2 #32
+2024/05/27-17:03:03.872 5ae0 Manual compaction at level-0 from '\x00\x10\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x11\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/05/27-17:03:35.085 2638 Compacting 1@1 + 1@2 files
+2024/05/27-17:03:35.088 2638 Generated table #41@1: 41 keys, 3631 bytes
+2024/05/27-17:03:35.088 2638 Compacted 1@1 + 1@2 files => 3631 bytes
+2024/05/27-17:03:35.089 2638 compacted to: files[ 0 0 1 0 0 0 0 ]
+2024/05/27-17:03:35.090 2638 Delete type=2 #36
+2024/05/27-17:03:35.090 2638 Delete type=2 #39
