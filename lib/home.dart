@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mad_real_project/main.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -63,29 +65,36 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.videogame_asset),
-            label: 'Game',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group),
-            label: 'Community',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map),
-            label: 'Map',
-          ),
-        ],
-        currentIndex: 0,
-        selectedItemColor: Colors.green,
-        onTap: (index) {
-          // Handle navigation on tap
+      bottomNavigationBar: Consumer<NavBarModel>(
+        builder: (context, navBarModel, child) {
+          return BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.videogame_asset),
+                label: 'Game',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.group),
+                label: 'Community',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.map),
+                label: 'Map',
+              ),
+            ],
+            currentIndex: navBarModel.currentIndex,
+            selectedItemColor: Colors.green,
+            onTap: (index) {
+              navBarModel.setCurrentIndex(index);
+              if (index == 3) { // map 아이콘 인덱스일 때
+                Navigator.pushNamed(context, '/map');
+              }
+            },
+          );
         },
       ),
     );
