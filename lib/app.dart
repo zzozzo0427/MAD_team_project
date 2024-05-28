@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mad_real_project/home.dart';
-import 'package:mad_real_project/map.dart';
+import 'map.dart';
 import 'login.dart';
 import 'splash.dart';
 import 'home.dart';
