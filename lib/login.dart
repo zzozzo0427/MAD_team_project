@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'home.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -9,8 +10,7 @@ class LoginScreen extends StatelessWidget {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -25,9 +25,30 @@ class LoginScreen extends StatelessWidget {
   Future<void> _handleSignIn(BuildContext context) async {
     try {
       UserCredential userCredential = await signInWithGoogle();
-      // Navigate to the map screen after successful login
-      Navigator.pushNamed(context, '/home');
-      print('Signed in as: ${userCredential.user?.displayName}');
+      User? user = userCredential.user;
+
+      if (user != null) {
+        // Check if the user already exists in Firestore
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+
+        if (!userDoc.exists) {
+          // If the user does not exist, add them to the Firestore database
+          await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+            'UID': user.uid,
+            'email': user.email,
+            'MyPoints': 0,
+            'Name': user.displayName,
+          });
+        }
+
+        // Navigate to the home screen after successful login
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+
+        print('Signed in as: ${user.displayName}');
+      }
     } catch (error) {
       print(error);
     }
