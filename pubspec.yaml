@@ -41,11 +41,12 @@ dependencies:
   cloud_firestore: ^4.17.4
   provider: ^6.1.2
   firebase_ui_auth: ^1.14.0
-
+  lottie: ^3.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -62,6 +63,7 @@ flutter:
   assets:
     - assets/splash.png
     - assets/angelic_lung.png
+    - assets/my_lung.json
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

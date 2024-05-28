@@ -85,6 +85,7 @@ class _MapScreenState extends State<MapScreen> {
             ],
             currentIndex: navBarModel.currentIndex,
             selectedItemColor: Colors.green,
+            unselectedItemColor: Colors.black,
             onTap: (index) {
               navBarModel.setCurrentIndex(index);
               // Handle navigation on tap
@@ -93,16 +94,16 @@ class _MapScreenState extends State<MapScreen> {
                   context,
                   MaterialPageRoute(builder: (context) => HomeScreen()),
                 );
-              // } else if (index == 1) {
-              //   Navigator.push(
-              //     context,
-              //     MaterialPageRoute(builder: (context) => GameScreen()),
-              //   );
-              // } else if (index == 2) {
-              //   Navigator.push(
-              //     context,
-              //     MaterialPageRoute(builder: (context) => CommunityScreen()),
-              //   );
+                // } else if (index == 1) {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(builder: (context) => GameScreen()),
+                //   );
+                // } else if (index == 2) {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(builder: (context) => CommunityScreen()),
+                //   );
               }
             },
           );
