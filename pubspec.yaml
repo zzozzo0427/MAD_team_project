@@ -35,4 +35,5 @@ flutter:
   assets:
     - assets/splash.png
     - assets/angelic_lung.png
+    - assets/my_lung.json
   uses-material-design: true
