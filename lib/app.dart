@@ -3,6 +3,7 @@ import 'map.dart';
 import 'login.dart';
 import 'splash.dart';
 import 'home.dart';
+import 'rank.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),
         '/map': (context) => MapScreen(),
+        '/rank': (context) => LeaderBoard(),
       },
     );
   }

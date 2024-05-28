@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mad_real_project/main.dart';
+import 'package:mad_real_project/rank.dart';
 import 'package:provider/provider.dart';
 import 'package:lottie/lottie.dart';
 
@@ -90,6 +91,10 @@ class HomeScreen extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 // Rank button action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LeaderBoard()),
+                  );
               },
               child: Text(
                 'Rank',
