@@ -121,9 +121,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   MaterialPageRoute(builder: (context) => LeaderBoard()),
                 );
               },
-              child: Text(
-                'Rank',
-                style: TextStyle(color: Colors.black), // 글자 색상을 검은색으로 설정
+              child: Icon(
+                Icons.emoji_events, // crown 아이콘 사용
+                color: Colors.black, // 아이콘 색상을 검은색으로 설정
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white, // 배경 색상을 흰색으로 설정
@@ -150,8 +150,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: 'Game',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.group),
-                label: 'Community',
+                icon: Icon(Icons.sports_mma),
+                label: 'Challenge',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.map),
