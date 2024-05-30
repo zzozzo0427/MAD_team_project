@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mad_real_project/challenge.dart';
 import 'map.dart';
 import 'login.dart';
 import 'splash.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/map': (context) => MapScreen(),
         '/rank': (context) => LeaderBoard(),
         '/profile': (context) => ProfileScreen(),
+        '/challenge': (context) => ChallengeScreen(),
       },
     );
   }

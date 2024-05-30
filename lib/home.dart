@@ -163,6 +163,9 @@ class _HomeScreenState extends State<HomeScreen> {
             unselectedItemColor: Colors.black,
             onTap: (index) {
               navBarModel.setCurrentIndex(index);
+              if (index == 2) {
+                Navigator.pushNamed(context, '/challenge');
+              }
               if (index == 3) {
                 // map 아이콘 인덱스일 때
                 Navigator.pushNamed(context, '/map');
