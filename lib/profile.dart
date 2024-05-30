@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'login.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -8,8 +9,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-
   String email = '';
   String name = '';
   int points = 0;
@@ -32,6 +31,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,46 +45,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: Text('Profile'),
         backgroundColor: Colors.green, // 테마 색상 녹색
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.green,
-              child: Icon(
-                Icons.person,
-                size: 50,
-                color: Colors.white,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: Colors.green,
+                child: Icon(
+                  Icons.person,
+                  size: 50,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Name: $name',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
+              SizedBox(height: 20),
+              Text(
+                'Name: $name',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green,
+                ),
               ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Email: $email',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.black87,
+              SizedBox(height: 10),
+              Text(
+                'Email: $email',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black87,
+                ),
               ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Points: $points',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.black87,
+              SizedBox(height: 10),
+              Text(
+                'Points: $points',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black87,
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 10),
+              Text(
+                'Level: ${points ~/ 50}',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black87,
+                ),
+              ),
+              Spacer(),
+              ElevatedButton(
+                onPressed: _signOut,
+                child: Text('Logout'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green, // 버튼 배경색
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
