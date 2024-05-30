@@ -38,17 +38,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green, // 상단바 배경색을 녹색으로 설정
-        leading: Padding(
-          padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
-          child: IconButton(
-            icon: Icon(Icons.person, color: Colors.black), // 프로필 아이콘을 왼쪽에 배치
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()),
-                );
-            },
-          ),
+        leading: IconButton(
+          icon: Icon(Icons.person, color: Colors.black), // 프로필 아이콘을 왼쪽에 배치
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfileScreen()),
+            );
+          },
+          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0), // 아이콘에 직접 padding 적용
         ),
         title: Text(
           'Smoquit',
@@ -59,14 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true, // 타이틀을 가운데로 정렬
         actions: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 50, 0),
-            child: IconButton(
-              icon: Icon(Icons.settings, color: Colors.black), // 세팅 아이콘을 오른쪽에 배치
-              onPressed: () {
-                // Settings button action
-              },
-            ),
+          IconButton(
+            icon: Icon(Icons.settings, color: Colors.black), // 세팅 아이콘을 오른쪽에 배치
+            onPressed: () {
+              // Settings button action
+            },
+            padding: const EdgeInsets.fromLTRB(0, 0, 20, 0), // 아이콘에 직접 padding 적용
           ),
         ],
       ),
