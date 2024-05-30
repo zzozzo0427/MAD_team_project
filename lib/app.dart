@@ -4,6 +4,7 @@ import 'login.dart';
 import 'splash.dart';
 import 'home.dart';
 import 'rank.dart';
+import 'profile.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/map': (context) => MapScreen(),
         '/rank': (context) => LeaderBoard(),
+        '/profile': (context) => ProfileScreen(),
       },
     );
   }

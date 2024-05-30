@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mad_real_project/main.dart';
+import 'package:mad_real_project/profile.dart';
 import 'package:provider/provider.dart';
 import 'package:lottie/lottie.dart';
 import 'rank.dart';
@@ -42,7 +43,10 @@ class _HomeScreenState extends State<HomeScreen> {
           child: IconButton(
             icon: Icon(Icons.person, color: Colors.black), // 프로필 아이콘을 왼쪽에 배치
             onPressed: () {
-              // 프로필 버튼 액션
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()),
+                );
             },
           ),
         ),
