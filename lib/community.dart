@@ -186,7 +186,12 @@ class _PostItemState extends State<PostItem> {
                         IconButton(
                           icon: Icon(Icons.edit, color: Colors.grey),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/modify', arguments: widget.postId);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ModifyPostPage(postId: widget.postId),
+                              ),
+                            );
                           },
                         ),
                         IconButton(
@@ -202,6 +207,103 @@ class _PostItemState extends State<PostItem> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ModifyPostPage extends StatefulWidget {
+  final String postId;
+
+  ModifyPostPage({required this.postId});
+
+  @override
+  _ModifyPostPageState createState() => _ModifyPostPageState();
+}
+
+class _ModifyPostPageState extends State<ModifyPostPage> {
+  final TextEditingController _textController = TextEditingController();
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPostData();
+  }
+
+  void _loadPostData() async {
+    final postDoc = await FirebaseFirestore.instance.collection('post').doc(widget.postId).get();
+    if (postDoc.exists) {
+      setState(() {
+        _textController.text = postDoc['context'];
+        isLoading = false;
+      });
+    }
+  }
+
+  void _updatePost() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null || _textController.text.isEmpty) return;
+
+    await FirebaseFirestore.instance.collection('post').doc(widget.postId).update({
+      'context': _textController.text,
+    });
+
+    Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final String profileImageUrl = currentUser?.photoURL ?? 'https://www.example.com/default_profile_image.png'; // 기본 이미지 URL로 대체
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text('Modify Post'),
+        actions: [
+          TextButton(
+            onPressed: _updatePost,
+            child: Text(
+              'Update',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ),
+        ],
+        backgroundColor: Colors.green,
+      ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(profileImageUrl),
+                        radius: 24,
+                      ),
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: TextField(
+                          controller: _textController,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            hintText: 'What\'s happening?',
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+      backgroundColor: Colors.green[50],
     );
   }
 }
