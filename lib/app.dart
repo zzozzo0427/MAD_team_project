@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mad_real_project/challenge.dart';
+import 'package:mad_real_project/community.dart';
 import 'map.dart';
 import 'login.dart';
 import 'splash.dart';
 import 'home.dart';
 import 'rank.dart';
 import 'profile.dart';
+import 'add.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -24,6 +26,8 @@ class MyApp extends StatelessWidget {
         '/rank': (context) => LeaderBoard(),
         '/profile': (context) => ProfileScreen(),
         '/challenge': (context) => ChallengeScreen(),
+        '/community': (context) => CommunityPage(),
+        '/add': (context) => AddPostPage(),
       },
     );
   }

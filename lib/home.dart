@@ -168,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }
               if (index == 3) {
                 // map 아이콘 인덱스일 때
-                Navigator.pushNamed(context, '/map');
+                Navigator.pushNamed(context, '/community');
               }
             },
           );
