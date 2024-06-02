@@ -131,6 +131,34 @@ class _PostItemState extends State<PostItem> {
     }
   }
 
+  void _showDeleteDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('삭제 확인'),
+          content: Text('삭제하시겠습니까?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('아니오'),
+              onPressed: () {
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+              },
+            ),
+            TextButton(
+              child: Text('예'),
+              onPressed: () {
+                deletePost();
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void deletePost() {
     FirebaseFirestore.instance.collection('post').doc(widget.postId).delete();
   }
@@ -196,7 +224,9 @@ class _PostItemState extends State<PostItem> {
                         ),
                         IconButton(
                           icon: Icon(Icons.delete, color: Colors.grey),
-                          onPressed: deletePost,
+                          onPressed: () {
+                            _showDeleteDialog(context);
+                          },
                         ),
                       ],
                     ],
