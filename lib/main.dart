@@ -5,6 +5,7 @@ import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +25,20 @@ void main() async {
   } catch (e) {
     print("Firebase 초기화 오류: $e");
   }
+
+  // FCM 초기화 및 토큰 가져오기
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  try {
+    String? token = await messaging.getToken();
+    print("FCM Token: $token");
+  } catch (e) {
+    print("FCM 초기화 오류: $e");
+  }
+
+  // FCM 메시지 수신 설정
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print("FCM 메시지 수신: ${message.notification?.title}");
+  });
 
   runApp(
     ChangeNotifierProvider(
