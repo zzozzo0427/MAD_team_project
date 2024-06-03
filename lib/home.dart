@@ -6,6 +6,7 @@ import 'package:mad_real_project/profile.dart';
 import 'package:provider/provider.dart';
 import 'package:lottie/lottie.dart';
 import 'rank.dart';
+import 'weather.dart'; // 새로 추가한 weather.dart 파일 임포트
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -37,39 +38,39 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green, // 상단바 배경색을 녹색으로 설정
+        backgroundColor: Colors.green,
         leading: IconButton(
-          icon: Icon(Icons.person, color: Colors.black), // 프로필 아이콘을 왼쪽에 배치
+          icon: Icon(Icons.person, color: Colors.black),
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ProfileScreen()),
             );
           },
-          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0), // 아이콘에 직접 padding 적용
+          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
         ),
         title: Text(
           'Smoquit',
           style: TextStyle(
             color: Colors.black,
-            fontWeight: FontWeight.bold, // 글자를 bold로 설정
+            fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: true, // 타이틀을 가운데로 정렬
+        centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.settings, color: Colors.black), // 세팅 아이콘을 오른쪽에 배치
+            icon: Icon(Icons.settings, color: Colors.black),
             onPressed: () {
               // Settings button action
             },
-            padding: const EdgeInsets.fromLTRB(0, 0, 20, 0), // 아이콘에 직접 padding 적용
+            padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
           ),
         ],
       ),
       body: Stack(
         children: [
           Container(
-            color: Colors.white, // 원하는 배경색으로 설정
+            color: Colors.white,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -90,8 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 300,
                   height: 300,
                   child: Lottie.asset(
-                    'assets/my_lung.json', // Lottie 애니메이션 파일 경로
-                    fit: BoxFit.contain, // 애니메이션이 잘리지 않도록 조정
+                    'assets/my_lung.json',
+                    fit: BoxFit.contain,
                   ),
                 ),
                 SizedBox(height: 20),
@@ -104,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SizedBox(height: 20),
                 LinearProgressIndicator(
-                  value: (userPoints % 50) / 50, // MyPoints에서 50 나눈 값의 비율
+                  value: (userPoints % 50) / 50,
                   backgroundColor: Colors.grey[300],
                   color: Colors.green,
                 ),
@@ -114,24 +115,48 @@ class _HomeScreenState extends State<HomeScreen> {
           Positioned(
             top: 100,
             right: 20,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LeaderBoard()),
-                );
-              },
-              child: Icon(
-                Icons.emoji_events, // crown 아이콘 사용
-                color: Colors.black, // 아이콘 색상을 검은색으로 설정
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white, // 배경 색상을 흰색으로 설정
-                side: BorderSide(color: Colors.green),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30), // 동그란 모양으로 설정
+            child: Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LeaderBoard()),
+                    );
+                  },
+                  child: Icon(
+                    Icons.emoji_events,
+                    color: Colors.black,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    side: BorderSide(color: Colors.green),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(height: 10), // 여백 추가
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => WeatherScreen()),
+                    );
+                  },
+                  child: Icon(
+                    Icons.cloud, // 날씨 아이콘
+                    color: Colors.black,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    side: BorderSide(color: Colors.green),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -167,7 +192,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pushNamed(context, '/challenge');
               }
               if (index == 3) {
-                // map 아이콘 인덱스일 때
                 Navigator.pushNamed(context, '/community');
               }
             },

@@ -8,6 +8,7 @@ import 'home.dart';
 import 'rank.dart';
 import 'profile.dart';
 import 'add.dart';
+import 'weather.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/challenge': (context) => ChallengeScreen(),
         '/community': (context) => CommunityPage(),
         '/add': (context) => AddPostPage(),
+        '/weather': (context) => WeatherScreen(),
       },
     );
   }
