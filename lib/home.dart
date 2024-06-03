@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mad_real_project/main.dart';
+import 'package:mad_real_project/map.dart';
 import 'package:mad_real_project/profile.dart';
 import 'package:provider/provider.dart';
 import 'package:lottie/lottie.dart';
@@ -59,12 +60,23 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         actions: [
           IconButton(
+            icon: Icon(Icons.map, color: Colors.black),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MapScreen()),
+              );
+            },
+            padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+          ),
+          IconButton(
             icon: Icon(Icons.settings, color: Colors.black),
             onPressed: () {
               // Settings button action
             },
             padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
           ),
+
         ],
       ),
       body: Stack(
@@ -179,8 +191,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: 'Challenge',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.map),
-                label: 'Map',
+                icon: Icon(Icons.group),
+                label: 'Community',
               ),
             ],
             currentIndex: navBarModel.currentIndex,
