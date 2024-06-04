@@ -54,6 +54,3 @@ flutter:
     
 
   
-    - assets/reading_woman.json
-    - assets/running_man.json
-  uses-material-design: true
