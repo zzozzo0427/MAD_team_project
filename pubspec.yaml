@@ -50,10 +50,3 @@ flutter:
     - family: Game     
       fonts:
         - asset: assets/fonts/Game.ttf
-
-    
-
-  
-    - assets/reading_woman.json
-    - assets/running_man.json
-  uses-material-design: true
