@@ -12,6 +12,12 @@ class CommunityPage extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: (){
+              Navigator.pop(context);
+            },
+          ),
           title: Text("Community Board"),
           elevation: 4.0,
         ),
@@ -38,6 +44,11 @@ class PostList extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
         final posts = snapshot.data!.docs;
+        posts.sort((a, b) {
+          final likesA = (a.data() as Map<String, dynamic>)['likes'] ?? 0;
+          final likesB = (b.data() as Map<String, dynamic>)['likes'] ?? 0;
+          return likesB.compareTo(likesA);
+        });        
         List<Widget> postWidgets = [];
         for (var post in posts) {
           final postData = post.data() as Map<String, dynamic>;

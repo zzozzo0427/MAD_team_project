@@ -1,4 +1,4 @@
-package com.example.mad_real_project
+package com.somin.myapp
 
 import io.flutter.embedding.android.FlutterActivity
 

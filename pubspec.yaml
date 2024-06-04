@@ -25,6 +25,8 @@ dependencies:
   flame: ^1.10.0
   flame_audio: ^2.1.2
   #cupertino_icons: ^1.0.2
+  flutter_naver_map: ^1.2.2+flutter3.22
+
 
 
 dev_dependencies:
@@ -52,3 +54,6 @@ flutter:
     
 
   
+    - assets/reading_woman.json
+    - assets/running_man.json
+  uses-material-design: true
