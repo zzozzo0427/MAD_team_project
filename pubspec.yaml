@@ -41,4 +41,6 @@ flutter:
     - assets/splash.png
     - assets/angelic_lung.png
     - assets/my_lung.json
+    - assets/reading_woman.json
+    - assets/running_man.json
   uses-material-design: true
