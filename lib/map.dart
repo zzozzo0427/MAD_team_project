@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mad_real_project/main.dart';
-import 'package:map_launcher/map_launcher.dart';
-import 'package:provider/provider.dart';
-
-import 'home.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart'; 
 
 class MapScreen extends StatefulWidget {
   @override
@@ -11,55 +7,16 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  void _showMapsDialog(BuildContext context, Coords coords) async {
-    final availableMaps = await MapLauncher.installedMaps;
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return SafeArea(
-          child: Wrap(
-            children: [
-              for (var map in availableMaps)
-                ListTile(
-                  onTap: () {
-                    map.showMarker(
-                      coords: coords,
-                      title: "San Francisco",
-                      description: "This is San Francisco",
-                    );
-                    Navigator.pop(context);
-                  },
-                  title: Text(map.mapName),
-                  leading: Image.network(
-                    map.icon.toString(),
-                    height: 30,
-                    width: 30,
-                  ),
-                ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final coords = Coords(37.7749, -122.4194); // 샌프란시스코 위치
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Map Launcher Demo'),
-      ),
-      body: Stack(
-        children: [
-          Center(
-            child: ElevatedButton(
-              onPressed: () => _showMapsDialog(context, coords),
-              child: Text('Launch Map'),
-            ),
-          ),
-        ],
+    return MaterialApp(
+      home: Scaffold(
+        body: NaverMap(
+          options: const NaverMapViewOptions(),
+          onMapReady: (controller) {
+            print("네이버 맵 로딩됨!");
+          },
+        ),
       ),
     );
   }

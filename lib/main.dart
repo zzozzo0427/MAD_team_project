@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,13 @@ void main() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print("FCM 메시지 수신: ${message.notification?.title}");
   });
+
+  // Naver Map SDK 초기화
+  try {
+    await NaverMapSdk.instance.initialize(clientId: 'hztmpwfdp5');
+  } catch (e) {
+    print("Naver Map 초기화 오류: $e");
+  }
 
   runApp(
     ChangeNotifierProvider(
@@ -84,7 +92,6 @@ Future<void> checkAndUpdateChallenges(User user) async {
     print("챌린지 업데이트 오류: $e");
   }
 }
-
 
 class NavBarModel extends ChangeNotifier {
   int _currentIndex = 0;
