@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mad_real_project/challenge.dart';
 import 'package:mad_real_project/community.dart';
+import 'package:mad_real_project/game.dart';
 import 'map.dart';
 import 'login.dart';
 import 'splash.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/community': (context) => CommunityPage(),
         '/add': (context) => AddPostPage(),
         '/weather': (context) => WeatherScreen(),
+        '/game': (context) => GameScreen(), // 게임 화면 라우트 추가
       },
     );
   }

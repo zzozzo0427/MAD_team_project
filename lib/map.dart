@@ -46,7 +46,6 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     final coords = Coords(37.7749, -122.4194); // 샌프란시스코 위치
-    final navBarModel = Provider.of<NavBarModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -61,53 +60,6 @@ class _MapScreenState extends State<MapScreen> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: Consumer<NavBarModel>(
-        builder: (context, navBarModel, child) {
-          return BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.videogame_asset),
-                label: 'Game',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.group),
-                label: 'Community',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.map),
-                label: 'Map',
-              ),
-            ],
-            currentIndex: navBarModel.currentIndex,
-            selectedItemColor: Colors.green,
-            unselectedItemColor: Colors.black,
-            onTap: (index) {
-              navBarModel.setCurrentIndex(index);
-              // Handle navigation on tap
-              if (index == 0) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                );
-                // } else if (index == 1) {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(builder: (context) => GameScreen()),
-                //   );
-                // } else if (index == 2) {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(builder: (context) => CommunityScreen()),
-                //   );
-              }
-            },
-          );
-        },
       ),
     );
   }

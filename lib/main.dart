@@ -55,11 +55,13 @@ Future<void> checkAndUpdateChallenges(User user) async {
 
   DateTime now = DateTime.now();
   try {
+    print("쿼리 실행 전 현재 시간: $now");
     QuerySnapshot querySnapshot = await challengesRef
         .where('overDate', isLessThanOrEqualTo: now)
         .where('uid', isEqualTo: user.uid)
         .get();
 
+    print("쿼리 실행 후 문서 개수: ${querySnapshot.docs.length}");
     for (var doc in querySnapshot.docs) {
       var data = doc.data() as Map<String, dynamic>;
       String uid = data['uid'];
@@ -82,6 +84,7 @@ Future<void> checkAndUpdateChallenges(User user) async {
     print("챌린지 업데이트 오류: $e");
   }
 }
+
 
 class NavBarModel extends ChangeNotifier {
   int _currentIndex = 0;
