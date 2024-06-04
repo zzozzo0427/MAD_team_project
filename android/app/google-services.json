@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1052926683011:android:3985aab18ec0098b27f8b6",
         "android_client_info": {
-          "package_name": "com.example.mad_real_project"
+          "package_name": "com.somin.myapp"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "1052926683011-8355681a7fg2akgch62qomii45sv9plf.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.mad_real_project"
+                "bundle_id": "com.somin.myapp"
               }
             }
           ]
@@ -45,7 +45,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1052926683011:android:a8387b77e7ef4d6527f8b6",
         "android_client_info": {
-          "package_name": "com.example.mad_real_project"
+          "package_name": "com.somin.myapp"
         }
       },
       "oauth_client": [
@@ -70,7 +70,7 @@
               "client_id": "1052926683011-8355681a7fg2akgch62qomii45sv9plf.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.mad_real_project"
+                "bundle_id": "com.somin.myapp"
               }
             }
           ]

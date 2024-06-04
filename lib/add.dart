@@ -101,7 +101,8 @@ class _AddPostPageState extends State<AddPostPage> {
   @override
   Widget build(BuildContext context) {
     final currentUser = FirebaseAuth.instance.currentUser;
-    final String profileImageUrl = currentUser?.photoURL ?? 'https://www.example.com/default_profile_image.png';
+    final String profileImageUrl = currentUser?.photoURL ??
+        'https://www.example.com/default_profile_image.png';
 
     return Scaffold(
       appBar: AppBar(
@@ -149,9 +150,8 @@ class _AddPostPageState extends State<AddPostPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: !_hasSpeech || _speechToText.isListening
-            ? null
-            : startListening,
+        onPressed:
+            !_hasSpeech || _speechToText.isListening ? null : startListening,
         child: Icon(Icons.mic),
       ),
       backgroundColor: Colors.green[50],

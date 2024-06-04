@@ -12,6 +12,12 @@ class CommunityPage extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: (){
+              Navigator.pop(context);
+            },
+          ),
           title: Text("Community Board"),
           elevation: 4.0,
         ),
@@ -38,6 +44,11 @@ class PostList extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
         final posts = snapshot.data!.docs;
+        posts.sort((a, b) {
+          final likesA = (a.data() as Map<String, dynamic>)['likes'] ?? 0;
+          final likesB = (b.data() as Map<String, dynamic>)['likes'] ?? 0;
+          return likesB.compareTo(likesA);
+        });        
         List<Widget> postWidgets = [];
         for (var post in posts) {
           final postData = post.data() as Map<String, dynamic>;
@@ -116,14 +127,20 @@ class _PostItemState extends State<PostItem> {
 
     if (isLiked) {
       await likeRef.delete();
-      FirebaseFirestore.instance.collection('post').doc(widget.postId).update({'likes': FieldValue.increment(-1)});
+      FirebaseFirestore.instance
+          .collection('post')
+          .doc(widget.postId)
+          .update({'likes': FieldValue.increment(-1)});
       setState(() {
         likeCount -= 1;
         isLiked = false;
       });
     } else {
       await likeRef.set({});
-      FirebaseFirestore.instance.collection('post').doc(widget.postId).update({'likes': FieldValue.increment(1)});
+      FirebaseFirestore.instance
+          .collection('post')
+          .doc(widget.postId)
+          .update({'likes': FieldValue.increment(1)});
       setState(() {
         likeCount += 1;
         isLiked = true;
@@ -176,7 +193,8 @@ class _PostItemState extends State<PostItem> {
           children: [
             CircleAvatar(
               backgroundColor: Colors.blue,
-              child: Text(widget.name[0], style: TextStyle(color: Colors.white)),
+              child:
+                  Text(widget.name[0], style: TextStyle(color: Colors.white)),
             ),
             SizedBox(width: 10.0),
             Expanded(
@@ -210,14 +228,16 @@ class _PostItemState extends State<PostItem> {
                         onPressed: toggleLike,
                       ),
                       Text('$likeCount'),
-                      if (currentUser != null && currentUser.uid == widget.uid) ...[
+                      if (currentUser != null &&
+                          currentUser.uid == widget.uid) ...[
                         IconButton(
                           icon: Icon(Icons.edit, color: Colors.grey),
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ModifyPostPage(postId: widget.postId),
+                                builder: (context) =>
+                                    ModifyPostPage(postId: widget.postId),
                               ),
                             );
                           },
@@ -261,7 +281,10 @@ class _ModifyPostPageState extends State<ModifyPostPage> {
   }
 
   void _loadPostData() async {
-    final postDoc = await FirebaseFirestore.instance.collection('post').doc(widget.postId).get();
+    final postDoc = await FirebaseFirestore.instance
+        .collection('post')
+        .doc(widget.postId)
+        .get();
     if (postDoc.exists) {
       setState(() {
         _textController.text = postDoc['context'];
@@ -274,7 +297,10 @@ class _ModifyPostPageState extends State<ModifyPostPage> {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null || _textController.text.isEmpty) return;
 
-    await FirebaseFirestore.instance.collection('post').doc(widget.postId).update({
+    await FirebaseFirestore.instance
+        .collection('post')
+        .doc(widget.postId)
+        .update({
       'context': _textController.text,
     });
 
@@ -284,7 +310,8 @@ class _ModifyPostPageState extends State<ModifyPostPage> {
   @override
   Widget build(BuildContext context) {
     final currentUser = FirebaseAuth.instance.currentUser;
-    final String profileImageUrl = currentUser?.photoURL ?? 'https://www.example.com/default_profile_image.png'; // 기본 이미지 URL로 대체
+    final String profileImageUrl = currentUser?.photoURL ??
+        'https://www.example.com/default_profile_image.png'; // 기본 이미지 URL로 대체
 
     return Scaffold(
       appBar: AppBar(

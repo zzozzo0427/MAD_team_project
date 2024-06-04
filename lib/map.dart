@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mad_real_project/main.dart';
-import 'package:map_launcher/map_launcher.dart';
-import 'package:provider/provider.dart';
-
-import 'home.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -11,55 +7,53 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  void _showMapsDialog(BuildContext context, Coords coords) async {
-    final availableMaps = await MapLauncher.installedMaps;
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return SafeArea(
-          child: Wrap(
-            children: [
-              for (var map in availableMaps)
-                ListTile(
-                  onTap: () {
-                    map.showMarker(
-                      coords: coords,
-                      title: "San Francisco",
-                      description: "This is San Francisco",
-                    );
-                    Navigator.pop(context);
-                  },
-                  title: Text(map.mapName),
-                  leading: Image.network(
-                    map.icon.toString(),
-                    height: 30,
-                    width: 30,
-                  ),
-                ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final coords = Coords(37.7749, -122.4194); // 샌프란시스코 위치
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Map Launcher Demo'),
-      ),
-      body: Stack(
-        children: [
-          Center(
-            child: ElevatedButton(
-              onPressed: () => _showMapsDialog(context, coords),
-              child: Text('Launch Map'),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.green,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          title: Text('포항시 보건소 위치'),
+        ),
+        body: NaverMap(
+          options: NaverMapViewOptions(
+            initialCameraPosition: const NCameraPosition(
+              target: NLatLng(36.0425, 129.3544),
+              zoom: 12,
             ),
           ),
-        ],
+          onMapReady: (controller) {
+            final markerNamgu = NMarker(
+              id: 'namgu',
+              position: const NLatLng(36.0192, 129.3431),
+            );
+            final markerBukgu = NMarker(
+              id: 'bukgu',
+              position: const NLatLng(36.0658, 129.3657),
+            );
+
+            controller.addOverlayAll({markerNamgu, markerBukgu});
+
+            final onMarkerInfoWindowNamgu = NInfoWindow.onMarker(
+              id: markerNamgu.info.id,
+              text: "포항시 남구 보건소",
+            );
+            final onMarkerInfoWindowBukgu = NInfoWindow.onMarker(
+              id: markerBukgu.info.id,
+              text: "포항시 북구 보건소",
+            );
+
+            markerNamgu.openInfoWindow(onMarkerInfoWindowNamgu);
+            markerBukgu.openInfoWindow(onMarkerInfoWindowBukgu);
+          },
+        ),
       ),
     );
   }

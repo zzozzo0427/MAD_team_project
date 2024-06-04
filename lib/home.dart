@@ -27,7 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _fetchUserData() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
       setState(() {
         userName = userDoc['Name'];
         userPoints = userDoc['MyPoints'];
@@ -200,6 +203,10 @@ class _HomeScreenState extends State<HomeScreen> {
             unselectedItemColor: Colors.black,
             onTap: (index) {
               navBarModel.setCurrentIndex(index);
+              if (index == 1) {
+                //print("Navigating to game screen");
+                Navigator.pushNamed(context, '/game'); // 게임 화면으로 이동
+              }
               if (index == 2) {
                 Navigator.pushNamed(context, '/challenge');
               }
