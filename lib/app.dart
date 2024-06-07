@@ -10,6 +10,7 @@ import 'rank.dart';
 import 'profile.dart';
 import 'add.dart';
 import 'weather.dart';
+import 'shop.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/add': (context) => AddPostPage(),
         '/weather': (context) => WeatherScreen(),
         '/game': (context) => GameScreen(), // 게임 화면 라우트 추가
+        '/shop': (context) => ShopScreen(),
       },
     );
   }

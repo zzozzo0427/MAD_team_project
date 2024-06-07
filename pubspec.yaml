@@ -39,8 +39,13 @@ flutter:
 
   assets:
     - assets/splash.png
-    - assets/angelic_lung.png
-    - assets/my_lung.json
+  
+    - assets/my_1.json
+    - assets/my_2.json
+    - assets/my_3.json
+    - assets/my_4.json
+    - assets/my_5.json
+    
     - assets/running_man.json
     - assets/reading_woman.json
     - assets/images/
@@ -53,7 +58,4 @@ flutter:
 
     
 
-  
-    - assets/reading_woman.json
-    - assets/running_man.json
-  uses-material-design: true
+

@@ -1,6 +1,7 @@
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:mad_real_project/game/flappy_bird_game.dart';
+import 'package:mad_real_project/home.dart';
 import 'package:mad_real_project/screens/main_menu_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

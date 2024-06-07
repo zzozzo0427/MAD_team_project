@@ -7,9 +7,12 @@ import 'package:mad_real_project/profile.dart';
 import 'package:provider/provider.dart';
 import 'package:lottie/lottie.dart';
 import 'rank.dart';
-import 'weather.dart'; // 새로 추가한 weather.dart 파일 임포트
+import 'weather.dart';
+import 'shop.dart';
 
 class HomeScreen extends StatefulWidget {
+  static String currentLottie = 'assets/my_1.json';
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -36,6 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
         userPoints = userDoc['MyPoints'];
       });
     }
+  }
+
+  void updateLottieAnimation(String lottiePath) {
+    setState(() {
+      HomeScreen.currentLottie = lottiePath;
+    });
   }
 
   @override
@@ -79,7 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
           ),
-
         ],
       ),
       body: Stack(
@@ -106,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 300,
                   height: 300,
                   child: Lottie.asset(
-                    'assets/my_lung.json',
+                    HomeScreen.currentLottie,
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -171,6 +179,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ShopScreen()),
+                    );
+                  },
+                  child: Icon(
+                    Icons.shop, // 상점 아이콘
+                    color: Colors.black,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    side: BorderSide(color: Colors.green),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -204,7 +232,6 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: (index) {
               navBarModel.setCurrentIndex(index);
               if (index == 1) {
-                //print("Navigating to game screen");
                 Navigator.pushNamed(context, '/game'); // 게임 화면으로 이동
               }
               if (index == 2) {

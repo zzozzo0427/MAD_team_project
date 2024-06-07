@@ -33,6 +33,15 @@ class GameOverScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => onExit(context),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                child: const Text(
+                  'Exit',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
             ],
           ),
         ),
@@ -42,5 +51,10 @@ class GameOverScreen extends StatelessWidget {
     game.bird.reset();
     game.overlays.remove('gameOver');
     game.resumeEngine();
+  }
+
+  void onExit(BuildContext context) {
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
   }
 }
