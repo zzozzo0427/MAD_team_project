@@ -59,7 +59,7 @@ class _ShopScreenState extends State<ShopScreen> {
                       Expanded(
                         child: _buildLottieWidget(index),
                       ),
-                      SizedBox(height: 8), // 위 여백 추가
+                      SizedBox(height: 8), 
                       Text(
                         'Score: ${_scoreThreshold(index)}',
                         style: TextStyle(
@@ -69,7 +69,7 @@ class _ShopScreenState extends State<ShopScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8), // 아래 여백 추가
+                      SizedBox(height: 8), 
                     ],
                   ),
                   if (!(index == 0 || highScore >= _scoreThreshold(index)))
@@ -132,10 +132,8 @@ class _ShopScreenState extends State<ShopScreen> {
       'assets/my_5.json',
     ];
 
-    // Update the Lottie animation used in the home screen
     HomeScreen.currentLottie = lottieFiles[lottieIndex - 1];
 
-    // Navigate back to the home screen
     Navigator.of(context)
         .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
   }

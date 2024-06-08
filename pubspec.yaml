@@ -39,6 +39,7 @@ flutter:
 
   assets:
     - assets/splash.png
+    - assets/google_logo.png
   
     - assets/my_1.json
     - assets/my_2.json

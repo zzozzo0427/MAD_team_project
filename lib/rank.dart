@@ -101,7 +101,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
     return Container(
       width: 100,
       height: height,
-      margin: EdgeInsets.symmetric(horizontal: 0.0), // 간격을 0으로 설정하여 붙게 만듦
+      margin: EdgeInsets.symmetric(horizontal: 0.0),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(5.0),

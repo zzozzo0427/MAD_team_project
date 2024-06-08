@@ -6,19 +6,15 @@ import 'home.dart';
 
 class LoginScreen extends StatelessWidget {
   Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
-    // Create a new credential
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
 
-    // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
@@ -28,11 +24,9 @@ class LoginScreen extends StatelessWidget {
       User? user = userCredential.user;
 
       if (user != null) {
-        // Check if the user already exists in Firestore
         DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
 
         if (!userDoc.exists) {
-          // If the user does not exist, add them to the Firestore database
           await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
             'UID': user.uid,
             'email': user.email,
@@ -41,7 +35,6 @@ class LoginScreen extends StatelessWidget {
           });
         }
 
-        // Navigate to the home screen after successful login
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -66,7 +59,7 @@ class LoginScreen extends StatelessWidget {
             Text(
               'Smoquit',
               style: TextStyle(
-                fontSize: 32,
+                fontSize: 50,
                 fontWeight: FontWeight.bold,
                 color: Colors.green,
               ),
@@ -77,7 +70,11 @@ class LoginScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.android),
+                  Image.asset(
+                    'assets/google_logo.png',
+                    width: 24,
+                    height: 24,
+                    ),
                   SizedBox(width: 8),
                   Text('Sign in with Google'),
                 ],
@@ -85,7 +82,7 @@ class LoginScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.black,
                 backgroundColor: Colors.white,
-                minimumSize: Size(double.infinity, 48),
+                minimumSize: Size(200, 48),
               ),
             ),
           ],

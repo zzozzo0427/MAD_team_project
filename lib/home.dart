@@ -53,72 +53,61 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.green,
         leading: IconButton(
-          icon: Icon(Icons.person, color: Colors.black),
+          icon: Icon(Icons.person, color: Colors.white),
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ProfileScreen()),
             );
           },
-          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
         ),
         title: Text(
           'Smoquit',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.map, color: Colors.black),
+            icon: Icon(Icons.map, color: Colors.white),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => MapScreen()),
               );
             },
-            padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-          ),
-          IconButton(
-            icon: Icon(Icons.settings, color: Colors.black),
-            onPressed: () {
-              // Settings button action
-            },
-            padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          Container(
-            color: Colors.white,
-            child: Column(
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              userName.isNotEmpty ? userName : 'Loading...',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 20),
+            SizedBox(
+              width: 300,
+              height: 300,
+              child: Lottie.asset(
+                HomeScreen.currentLottie,
+                fit: BoxFit.contain,
+              ),
+            ),
+            SizedBox(height: 20),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    SizedBox(height: 20),
-                    Text(
-                      userName.isNotEmpty ? userName : 'Loading...',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                SizedBox(
-                  width: 300,
-                  height: 300,
-                  child: Lottie.asset(
-                    HomeScreen.currentLottie,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                SizedBox(height: 20),
+                Icon(Icons.star, color: Colors.yellow),
+                SizedBox(width: 10),
                 Text(
                   'LV. ${userPoints ~/ 50}',
                   style: TextStyle(
@@ -126,83 +115,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.green,
                   ),
                 ),
-                SizedBox(height: 20),
-                LinearProgressIndicator(
-                  value: (userPoints % 50) / 50,
-                  backgroundColor: Colors.grey[300],
-                  color: Colors.green,
-                ),
               ],
             ),
-          ),
-          Positioned(
-            top: 100,
-            right: 20,
-            child: Column(
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: LinearProgressIndicator(
+                value: (userPoints % 50) / 50,
+                backgroundColor: Colors.grey[300],
+                color: Colors.green,
+              ),
+            ),
+            SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LeaderBoard()),
-                    );
-                  },
-                  child: Icon(
-                    Icons.emoji_events,
-                    color: Colors.black,
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    side: BorderSide(color: Colors.green),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10), // 여백 추가
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => WeatherScreen()),
-                    );
-                  },
-                  child: Icon(
-                    Icons.cloud, // 날씨 아이콘
-                    color: Colors.black,
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    side: BorderSide(color: Colors.green),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ShopScreen()),
-                    );
-                  },
-                  child: Icon(
-                    Icons.shop, // 상점 아이콘
-                    color: Colors.black,
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    side: BorderSide(color: Colors.green),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                ),
+                _buildIconButton(Icons.emoji_events, 'Rank', LeaderBoard()),
+                _buildIconButton(Icons.cloud, 'Weather', WeatherScreen()),
+                _buildIconButton(Icons.shop, 'Shop', ShopScreen()),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: Consumer<NavBarModel>(
         builder: (context, navBarModel, child) {
@@ -232,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: (index) {
               navBarModel.setCurrentIndex(index);
               if (index == 1) {
-                Navigator.pushNamed(context, '/game'); // 게임 화면으로 이동
+                Navigator.pushNamed(context, '/game');
               }
               if (index == 2) {
                 Navigator.pushNamed(context, '/challenge');
@@ -244,6 +178,38 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
+    );
+  }
+
+  Widget _buildIconButton(IconData icon, String label, Widget screen) {
+    return Column(
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => screen),
+            );
+          },
+          child: Icon(
+            icon,
+            color: Colors.white,
+            size: 30,
+          ),
+          style: ElevatedButton.styleFrom(
+            shape: CircleBorder(), backgroundColor: Colors.green,
+            padding: EdgeInsets.all(15),
+          ),
+        ),
+        SizedBox(height: 5),
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }

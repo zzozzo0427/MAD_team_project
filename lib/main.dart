@@ -15,11 +15,9 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    // Firebase 초기화 후 사용자 로그인 상태 확인
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
 
-    // 사용자가 로그인되어 있는 경우만 챌린지 체크
     if (user != null) {
       await checkAndUpdateChallenges(user);
     }
@@ -27,7 +25,6 @@ void main() async {
     print("Firebase 초기화 오류: $e");
   }
 
-  // FCM 초기화 및 토큰 가져오기
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   try {
     String? token = await messaging.getToken();
@@ -36,12 +33,10 @@ void main() async {
     print("FCM 초기화 오류: $e");
   }
 
-  // FCM 메시지 수신 설정
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print("FCM 메시지 수신: ${message.notification?.title}");
   });
 
-  // Naver Map SDK 초기화
   try {
     await NaverMapSdk.instance.initialize(clientId: 'hztmpwfdp5');
   } catch (e) {

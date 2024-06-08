@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class CommunityPage extends StatelessWidget {
+class CommunityPage extends StatefulWidget {
+  @override
+  _CommunityPageState createState() => _CommunityPageState();
+}
+
+class _CommunityPageState extends State<CommunityPage> {
+  bool _sortByLikes = true;
+
+  void _toggleSortOrder() {
+    setState(() {
+      _sortByLikes = !_sortByLikes;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,17 +28,26 @@ class CommunityPage extends StatelessWidget {
           backgroundColor: Colors.green,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: (){
+            onPressed: () {
               Navigator.pop(context);
             },
           ),
           title: Text("Community Board"),
           elevation: 4.0,
+          actions: [
+            IconButton(
+              icon: Icon(
+                _sortByLikes ? Icons.favorite : Icons.star,
+                color: _sortByLikes ? Colors.red : Colors.yellow,
+              ),
+              onPressed: _toggleSortOrder,
+            ),
+          ],
         ),
-        body: PostList(),
+        body: PostList(sortByLikes: _sortByLikes),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/add'); // add.dart로 이동
+            Navigator.pushNamed(context, '/add');
           },
           child: Icon(Icons.create),
           backgroundColor: Colors.green,
@@ -36,6 +58,10 @@ class CommunityPage extends StatelessWidget {
 }
 
 class PostList extends StatelessWidget {
+  final bool sortByLikes;
+
+  PostList({required this.sortByLikes});
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -46,10 +72,16 @@ class PostList extends StatelessWidget {
         }
         final posts = snapshot.data!.docs;
         posts.sort((a, b) {
-          final likesA = (a.data() as Map<String, dynamic>)['likes'] ?? 0;
-          final likesB = (b.data() as Map<String, dynamic>)['likes'] ?? 0;
-          return likesB.compareTo(likesA);
-        });        
+          if (sortByLikes) {
+            final likesA = (a.data() as Map<String, dynamic>)['likes'] ?? 0;
+            final likesB = (b.data() as Map<String, dynamic>)['likes'] ?? 0;
+            return likesB.compareTo(likesA);
+          } else {
+            final dateA = (a.data() as Map<String, dynamic>)['date'].toDate().toString(); 
+            final dateB = (b.data() as Map<String, dynamic>)['date'].toDate().toString();
+            return dateB.compareTo(dateA);
+          }
+        });
         List<Widget> postWidgets = [];
         for (var post in posts) {
           final postData = post.data() as Map<String, dynamic>;
@@ -161,14 +193,14 @@ class _PostItemState extends State<PostItem> {
             TextButton(
               child: Text('아니오'),
               onPressed: () {
-                Navigator.of(context).pop(); // 다이얼로그 닫기
+                Navigator.of(context).pop();
               },
             ),
             TextButton(
               child: Text('예'),
               onPressed: () {
                 deletePost();
-                Navigator.of(context).pop(); // 다이얼로그 닫기
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -312,7 +344,7 @@ class _ModifyPostPageState extends State<ModifyPostPage> {
   Widget build(BuildContext context) {
     final currentUser = FirebaseAuth.instance.currentUser;
     final String profileImageUrl = currentUser?.photoURL ??
-        'https://www.example.com/default_profile_image.png'; // 기본 이미지 URL로 대체
+        'https://www.example.com/default_profile_image.png';
 
     return Scaffold(
       appBar: AppBar(

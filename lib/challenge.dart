@@ -21,11 +21,6 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
       appBar: AppBar(
         title: Text(
           'Smoquit! Challenge',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
         ),
         backgroundColor: Colors.green,
         elevation: 0,

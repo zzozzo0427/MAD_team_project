@@ -43,67 +43,77 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
-        backgroundColor: Colors.green, // 테마 색상 녹색
+        backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: _signOut,
+          ),
+        ],
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundColor: Colors.green,
-                child: Icon(
-                  Icons.person,
-                  size: 50,
-                  color: Colors.white,
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 80,
+              backgroundColor: Colors.green,
+              child: Icon(
+                Icons.person,
+                size: 80,
+                color: Colors.white,
               ),
-              SizedBox(height: 20),
-              Text(
-                'Name: $name',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green,
-                ),
+            ),
+            SizedBox(height: 30),
+            Text(
+              '$name',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.green,
               ),
-              SizedBox(height: 10),
-              Text(
-                'Email: $email',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black87,
-                ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              '$email',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black87,
               ),
-              SizedBox(height: 10),
-              Text(
-                'Points: $points',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black87,
-                ),
+            ),
+            SizedBox(height: 30),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.green[100],
+                borderRadius: BorderRadius.circular(10),
               ),
-              SizedBox(height: 10),
-              Text(
-                'Level: ${points ~/ 50}',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black87,
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.monetization_on, color: Colors.green[700], size: 30),
+                  Text(
+                    'Points: $points',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green[800],
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  Icon(Icons.stars, color: Colors.yellow[700], size: 30),
+                  Text(
+                    'Level: ${points ~/ 50}',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.green[800],
+                    ),
+                  ),
+                ],
               ),
-              Spacer(),
-              ElevatedButton(
-                onPressed: _signOut,
-                child: Text('Logout'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green, // 버튼 배경색
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

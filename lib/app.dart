@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         '/community': (context) => CommunityPage(),
         '/add': (context) => AddPostPage(),
         '/weather': (context) => WeatherScreen(),
-        '/game': (context) => GameScreen(), // 게임 화면 라우트 추가
+        '/game': (context) => GameScreen(),
         '/shop': (context) => ShopScreen(),
       },
     );
