@@ -78,7 +78,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     else
                       Column(
                         children: [
-                          Lottie.asset('assets/reading.json', height: 200),
+                          Lottie.asset('assets/reading_woman.json', height: 200),
                           SizedBox(height: 20),
                           Text(
                             '오늘은 집에서 독서를 하며 마음의 평화를 얻어보아요',
