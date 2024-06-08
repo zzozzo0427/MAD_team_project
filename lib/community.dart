@@ -12,6 +12,7 @@ class CommunityPage extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.green,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: (){

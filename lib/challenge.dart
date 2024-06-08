@@ -19,7 +19,16 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('담배 끊기 챌린지'),
+        title: Text(
+          'Smoquit! Challenge',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.green,
+        elevation: 0,
       ),
       body: ListView.builder(
         itemCount: challenges.length,
@@ -40,12 +49,17 @@ class ChallengeTile extends StatelessWidget {
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
 
-    CollectionReference challengesCollection = FirebaseFirestore.instance.collection('challenge');
-    QuerySnapshot existingChallenge = await challengesCollection.where('uid', isEqualTo: user.uid).get();
+    CollectionReference challengesCollection =
+        FirebaseFirestore.instance.collection('challenge');
+    QuerySnapshot existingChallenge =
+        await challengesCollection.where('uid', isEqualTo: user.uid).get();
 
     if (existingChallenge.docs.isNotEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('진행 중인 챌린지가 있습니다.')),
+        SnackBar(
+          content: Text('진행 중인 챌린지가 있습니다.'),
+          backgroundColor: Colors.red,
+        ),
       );
       return;
     }
@@ -60,16 +74,34 @@ class ChallengeTile extends StatelessWidget {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('${challenge['title']} 도전!')),
+      SnackBar(
+        content: Text('${challenge['title']} 도전!'),
+        backgroundColor: Colors.green,
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: ListTile(
-        title: Text(challenge['title']),
-        trailing: Icon(Icons.check_circle_outline),
+        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        title: Text(
+          challenge['title'],
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        trailing: Icon(
+          Icons.check_circle_outline,
+          color: Colors.green,
+          size: 30,
+        ),
         onTap: () => _saveChallenge(context),
       ),
     );
