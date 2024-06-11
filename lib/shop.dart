@@ -11,24 +11,24 @@ class ShopScreen extends StatefulWidget {
 
 class _ShopScreenState extends State<ShopScreen> {
   User? user;
-  int highScore = 0;
+  int userRank = 0;
 
   @override
   void initState() {
     super.initState();
-    fetchUserHighScore();
+    fetchUserRank();
   }
 
-  Future<void> fetchUserHighScore() async {
+  Future<void> fetchUserRank() async {
     user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      final doc = await FirebaseFirestore.instance
-          .collection('scores')
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
           .doc(user!.uid)
           .get();
-      if (doc.exists) {
+      if (userDoc.exists) {
         setState(() {
-          highScore = doc['highScore'] as int;
+          userRank = userDoc['rank'] as int;
         });
       }
     }
@@ -38,7 +38,19 @@ class _ShopScreenState extends State<ShopScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shop'),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Shop'),
+            Text(
+              'My Rank: $userRank',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -47,7 +59,7 @@ class _ShopScreenState extends State<ShopScreen> {
           children: List.generate(5, (index) {
             return GestureDetector(
               onTap: () {
-                if (index == 0 || highScore >= _scoreThreshold(index)) {
+                if (_isLottieUnlocked(index)) {
                   _updateHomeLottie(index + 1);
                 }
               },
@@ -59,20 +71,20 @@ class _ShopScreenState extends State<ShopScreen> {
                       Expanded(
                         child: _buildLottieWidget(index),
                       ),
-                      SizedBox(height: 8), 
+                      SizedBox(height: 8),
                       Text(
-                        'Score: ${_scoreThreshold(index)}',
+                        'Rank: ${_rankThreshold(index)}',
                         style: TextStyle(
-                          color: highScore >= _scoreThreshold(index)
+                          color: _isLottieUnlocked(index)
                               ? Colors.green
                               : Colors.red,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8), 
+                      SizedBox(height: 8),
                     ],
                   ),
-                  if (!(index == 0 || highScore >= _scoreThreshold(index)))
+                  if (!_isLottieUnlocked(index))
                     Positioned.fill(
                       child: Container(
                         color: Colors.black.withOpacity(0.5),
@@ -101,23 +113,27 @@ class _ShopScreenState extends State<ShopScreen> {
       'assets/my_5.json',
     ];
 
-    final isUnlocked = index == 0 || highScore >= _scoreThreshold(index);
+    final isUnlocked = _isLottieUnlocked(index);
     return Opacity(
       opacity: isUnlocked ? 1.0 : 0.2,
       child: Lottie.asset(lottieFiles[index]),
     );
   }
 
-  int _scoreThreshold(int index) {
+  bool _isLottieUnlocked(int index) {
+    return index == 0 || userRank >= _rankThreshold(index);
+  }
+
+  int _rankThreshold(int index) {
     switch (index) {
       case 1:
-        return 2;
-      case 2:
-        return 5;
-      case 3:
-        return 7;
-      case 4:
         return 10;
+      case 2:
+        return 20;
+      case 3:
+        return 30;
+      case 4:
+        return 40;
       default:
         return 0;
     }

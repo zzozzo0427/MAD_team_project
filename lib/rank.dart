@@ -64,7 +64,8 @@ class _LeaderBoardState extends State<LeaderBoard> {
                             itemCount: docs.length - 3,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 5.0, horizontal: 10.0),
                                 child: listTile(docs[index + 3], index + 4),
                               );
                             },
@@ -97,7 +98,8 @@ class _LeaderBoardState extends State<LeaderBoard> {
     );
   }
 
-  Widget podiumTile(DocumentSnapshot doc, int rank, Color color, double height) {
+  Widget podiumTile(
+      DocumentSnapshot doc, int rank, Color color, double height) {
     return Container(
       width: 100,
       height: height,
@@ -129,7 +131,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
           ),
           Flexible(
             child: Text(
-              "Points: " + doc['MyPoints'].toString(),
+              "points: " + doc['MyPoints'].toString(),
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -151,7 +153,8 @@ class _LeaderBoardState extends State<LeaderBoard> {
         contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
         leading: Text('$rank', style: TextStyle(color: Colors.white)),
         title: Text(doc['Name'], style: TextStyle(color: Colors.white)),
-        trailing: Text('Points: ' + doc['MyPoints'].toString(), style: TextStyle(color: Colors.white)),
+        trailing: Text('points: ' + doc['MyPoints'].toString(),
+            style: TextStyle(color: Colors.white)),
         onTap: () {},
       ),
     );
