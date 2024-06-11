@@ -1,4 +1,3 @@
-// community.dart
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,31 +58,54 @@ class _CommunityPageState extends State<CommunityPage> {
   }
 }
 
-class PostList extends StatelessWidget {
+class PostList extends StatefulWidget {
   final bool sortByLikes;
 
   PostList({required this.sortByLikes});
 
   @override
+  _PostListState createState() => _PostListState();
+}
+
+class _PostListState extends State<PostList> {
+  late Stream<QuerySnapshot> _postStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _updateStream();
+  }
+
+  @override
+  void didUpdateWidget(PostList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.sortByLikes != oldWidget.sortByLikes) {
+      _updateStream();
+    }
+  }
+
+  void _updateStream() {
+  _postStream = FirebaseFirestore.instance
+      .collection('post')
+      .orderBy(widget.sortByLikes ? 'likes' : 'date', descending: true)
+      .snapshots();
+}
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('post').snapshots(),
+      stream: _postStream,
       builder: (context, snapshot) {
-        if (!snapshot.hasData) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
+        if (snapshot.hasError) {
+          return Center(child: Text('오류가 발생했습니다: ${snapshot.error}'));
+        }
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return Center(child: Text('게시물이 없습니다.'));
+        }
         final posts = snapshot.data!.docs;
-          posts.sort((a, b) {
-            if (sortByLikes) {
-              final likesA = (a.data() as Map<String, dynamic>)['likes'] ?? 0;
-              final likesB = (b.data() as Map<String, dynamic>)['likes'] ?? 0;
-              return likesB.compareTo(likesA);
-            } else {
-              final dateA = (a.data() as Map<String, dynamic>)['date'].toDate(); 
-              final dateB = (b.data() as Map<String, dynamic>)['date'].toDate();
-              return dateB.compareTo(dateA);
-            }
-          });
         List<Widget> postWidgets = [];
         for (var post in posts) {
           final postData = post.data() as Map<String, dynamic>;
@@ -162,26 +184,31 @@ class _PostItemState extends State<PostItem> {
 
     if (isLiked) {
       await likeRef.delete();
-      FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('post')
           .doc(widget.postId)
           .update({'likes': FieldValue.increment(-1)});
-      setState(() {
-        likeCount -= 1;
-        isLiked = false;
-      });
+      if (mounted) {
+        setState(() {
+          likeCount -= 1;
+          isLiked = false;
+        });
+      }
     } else {
       await likeRef.set({});
-      FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('post')
           .doc(widget.postId)
           .update({'likes': FieldValue.increment(1)});
-      setState(() {
-        likeCount += 1;
-        isLiked = true;
-      });
+      if (mounted) {
+        setState(() {
+          likeCount += 1;
+          isLiked = true;
+        });
+      }
     }
   }
+
 
   void _showDeleteDialog(BuildContext context) {
     showDialog(
@@ -228,8 +255,7 @@ class _PostItemState extends State<PostItem> {
           children: [
             CircleAvatar(
               backgroundColor: Colors.blue,
-              child:
-                  Text(widget.name[0], style: TextStyle(color: Colors.white)),
+              child: Text(widget.name[0], style: TextStyle(color: Colors.white)),
             ),
             SizedBox(width: 10.0),
             Expanded(
@@ -271,8 +297,7 @@ class _PostItemState extends State<PostItem> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    ModifyPostPage(postId: widget.postId),
+                                builder: (context) => ModifyPostPage(postId: widget.postId),
                               ),
                             );
                           },
@@ -323,6 +348,10 @@ class _ModifyPostPageState extends State<ModifyPostPage> {
     if (postDoc.exists) {
       setState(() {
         _textController.text = postDoc['context'];
+        isLoading = false;
+      });
+    } else {
+      setState(() {
         isLoading = false;
       });
     }
