@@ -139,6 +139,13 @@ class ChallengeTile extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        subtitle: Text(
+          '성공하면 ${challenge['points']} 포인트 획득!',
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey,
+          ),
+        ),
         trailing: Icon(
           Icons.check_circle_outline,
           color: Colors.green,

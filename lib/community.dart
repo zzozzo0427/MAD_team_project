@@ -1,3 +1,4 @@
+// community.dart
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,6 +20,7 @@ class _CommunityPageState extends State<CommunityPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Community Board",
       theme: ThemeData(
         primaryColor: Colors.green,
@@ -71,17 +73,17 @@ class PostList extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
         final posts = snapshot.data!.docs;
-        posts.sort((a, b) {
-          if (sortByLikes) {
-            final likesA = (a.data() as Map<String, dynamic>)['likes'] ?? 0;
-            final likesB = (b.data() as Map<String, dynamic>)['likes'] ?? 0;
-            return likesB.compareTo(likesA);
-          } else {
-            final dateA = (a.data() as Map<String, dynamic>)['date'].toDate().toString(); 
-            final dateB = (b.data() as Map<String, dynamic>)['date'].toDate().toString();
-            return dateB.compareTo(dateA);
-          }
-        });
+          posts.sort((a, b) {
+            if (sortByLikes) {
+              final likesA = (a.data() as Map<String, dynamic>)['likes'] ?? 0;
+              final likesB = (b.data() as Map<String, dynamic>)['likes'] ?? 0;
+              return likesB.compareTo(likesA);
+            } else {
+              final dateA = (a.data() as Map<String, dynamic>)['date'].toDate(); 
+              final dateB = (b.data() as Map<String, dynamic>)['date'].toDate();
+              return dateB.compareTo(dateA);
+            }
+          });
         List<Widget> postWidgets = [];
         for (var post in posts) {
           final postData = post.data() as Map<String, dynamic>;
