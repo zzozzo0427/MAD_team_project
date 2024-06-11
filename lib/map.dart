@@ -25,18 +25,18 @@ class _MapScreenState extends State<MapScreen> {
         body: NaverMap(
           options: NaverMapViewOptions(
             initialCameraPosition: const NCameraPosition(
-              target: NLatLng(36.0425, 129.3544),
-              zoom: 12,
+              target: NLatLng(36.03155137924545, 129.3883309294615),
+              zoom: 11, // 적절한 줌 레벨 설정
             ),
           ),
           onMapReady: (controller) {
             final markerNamgu = NMarker(
               id: 'namgu',
-              position: const NLatLng(36.0192, 129.3431),
+              position: const NLatLng(35.9924409415333, 129.396224430861),
             );
             final markerBukgu = NMarker(
               id: 'bukgu',
-              position: const NLatLng(36.0658, 129.3657),
+              position: const NLatLng(36.0706618169576, 129.380437428062),
             );
 
             controller.addOverlayAll({markerNamgu, markerBukgu});
