@@ -11,15 +11,15 @@ class ShopScreen extends StatefulWidget {
 
 class _ShopScreenState extends State<ShopScreen> {
   User? user;
-  int userRank = 0;
+  int myPoints = 0;
 
   @override
   void initState() {
     super.initState();
-    fetchUserRank();
+    fetchUserPoints();
   }
 
-  Future<void> fetchUserRank() async {
+  Future<void> fetchUserPoints() async {
     user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final userDoc = await FirebaseFirestore.instance
@@ -28,7 +28,7 @@ class _ShopScreenState extends State<ShopScreen> {
           .get();
       if (userDoc.exists) {
         setState(() {
-          userRank = userDoc['rank'] as int;
+          myPoints = userDoc['MyPoints'] as int;
         });
       }
     }
@@ -36,6 +36,8 @@ class _ShopScreenState extends State<ShopScreen> {
 
   @override
   Widget build(BuildContext context) {
+    int userRank = myPoints ~/ 50;
+
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -121,6 +123,7 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   bool _isLottieUnlocked(int index) {
+    int userRank = myPoints ~/ 50;
     return index == 0 || userRank >= _rankThreshold(index);
   }
 

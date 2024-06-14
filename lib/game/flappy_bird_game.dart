@@ -20,7 +20,6 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   late TextComponent highScore;
   User? user;
   int highestScore = 0;
-  int userRank = 0;
   int myPoints = 0;
 
   @override
@@ -54,7 +53,6 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
         .doc(user!.uid)
         .get();
     if (userDoc.exists) {
-      userRank = userDoc['rank'] as int;
       myPoints = userDoc['MyPoints'] as int;
     }
   }
@@ -71,17 +69,15 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
         'highScore': highestScore,
       });
 
-      // MyPoints와 rank 업데이트
+      // MyPoints 업데이트
       int additionalPoints = additionalScore * 5;
       myPoints += additionalPoints;
-      userRank = (myPoints / 50).floor(); // rank 값 정수로 업데이트
 
       await FirebaseFirestore.instance
           .collection('users')
           .doc(user!.uid)
           .update({
         'MyPoints': myPoints,
-        'rank': userRank,
       });
     }
   }

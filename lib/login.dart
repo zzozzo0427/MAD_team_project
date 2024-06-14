@@ -8,7 +8,8 @@ class LoginScreen extends StatelessWidget {
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
@@ -24,10 +25,16 @@ class LoginScreen extends StatelessWidget {
       User? user = userCredential.user;
 
       if (user != null) {
-        DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
 
         if (!userDoc.exists) {
-          await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .set({
             'UID': user.uid,
             'email': user.email,
             'MyPoints': 0,
@@ -74,7 +81,7 @@ class LoginScreen extends StatelessWidget {
                     'assets/google_logo.png',
                     width: 24,
                     height: 24,
-                    ),
+                  ),
                   SizedBox(width: 8),
                   Text('Sign in with Google'),
                 ],
